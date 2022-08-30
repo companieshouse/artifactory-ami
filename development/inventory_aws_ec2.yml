@@ -1,0 +1,16 @@
+plugin: aws_ec2
+boto_profile: development-eu-west-2
+
+regions:
+  - eu-west-2
+
+filters:
+  tag:AMI: unnamed
+  tag:Service: packer-development
+  tag:Team: platform
+
+keyed_groups:
+  - key: tags.AMI
+    separator: ""
+
+hostnames: private-ip-address
