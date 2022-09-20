@@ -1,0 +1,39 @@
+---
+
+- name: Get the installer RPM
+  block:
+    - name: GET artifactory-pro rpm from S3 bucket
+      amazon.aws.aws_s3:
+        bucket: "{{ resource_bucket_name }}"
+        object: "/packages/artifactory/jfrog-artifactory-pro-{{ artifactory-version }}.rpm"
+        dest: "/{{ ssh_username }}/home/jfrog-artifactory-pro-{{ artifactory-version }}.rpm"
+        mode: get
+
+  rescue:
+    - name: Download artifactory-pro RPM from jfrog.io
+      ansible.builtin.get_url:
+        url: "{{ jfrog }}artifactory-pro-rpms/jfrog-artifactory-pro/jfrog-artifactory-pro-{{ artifactory-version }}.rpm"
+        dest: "/{{ ssh_username }}/home/jfrog-artifactory-pro-{{ artifactory-version }}.rpm"
+        when:
+    - name: Create a folder for this project
+      aws_s3:
+        bucket: "{{ resource_bucket_name }}"
+        object: "packages/{{ ami_name_prefix }}"
+        mode: create
+    - name: PUT downloaded artifactory-pro RPM into S3 bucket
+      amazon.aws.aws_s3:
+        bucket: "{{ resource_bucket_name }}"
+        object: "/packages/{{ ami_name_prefix }}/jfrog-artifactory-pro-{{ artifactory-version }}.rpm"
+        src: "/{{ ssh_username }}/home/jfrog-artifactory-pro-{{ artifactory-version }}.rpm"
+        mode: put
+
+
+- name: Set timezone to Europe/London
+  community.general.timezone:
+    name: Europe/London
+
+
+- name: Install artifactory-pro RPM package.
+  yum:
+     name: "/{{ ssh_username }}/home/jfrog-artifactory-pro-{{ artifactory-version }}.rpm"
+     state: present
