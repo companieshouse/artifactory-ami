@@ -5,7 +5,7 @@ variable "ami_account_ids" {
 
 variable "ami_name_prefix" {
   type        = string
-  default     = "unnamed"
+  default     = "artifactory"
   description = "The prefix string that will be used for the name tags of the resulting AMI and snapshot(s); the version string will be appended automatically"
 }
 
@@ -87,4 +87,21 @@ variable "ssh_username" {
 variable "version" {
   type        = string
   description = "The semantic version number for the AMI; the version string will be appended automatically to the name tags added to the resulting AMI and snapshot(s)"
+}
+
+variable "artifactory-version" {
+  type        = string
+  default     = "7.41.12"
+  description = "The semantic version number for the Artifactory release"
+}
+
+variable "resource_bucket_name" {
+  type        = string
+  description = "The name of the S3 resources bucket"
+}
+
+variable "jfrog" {
+  type        = string
+  default     = "https://releases.jfrog.io/artifactory/"
+  description = "The base URL for JFrog releases"
 }
