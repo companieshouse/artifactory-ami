@@ -2,11 +2,11 @@
 - name: GET installer rpm from S3 bucket
   amazon.aws.aws_s3:
     bucket: "{{ resource_bucket_name }}"
-    object: "{{ resource_bucket_artifactory_prefix }}/jfrog-artifactory-pro-{{ artifactory-version }}.rpm"
-    dest: "/{{ ssh_username }}/home/jfrog-artifactory-pro-{{ artifactory-version }}.rpm"
+    object: "{{ resource_bucket_artifactory_prefix }}/jfrog-artifactory-pro-{{ artifactory_version }}.rpm"
+    dest: "/{{ ssh_username }}/home/jfrog-artifactory-pro-{{ artifactory_version }}.rpm"
     mode: get
 
 - name: Install RPM package.
   yum:
-    name: "/{{ ssh_username }}/home/jfrog-artifactory-pro-{{ artifactory-version }}.rpm"
+    name: "/{{ ssh_username }}/home/jfrog-artifactory-pro-{{ artifactory_version }}.rpm"
     state: present

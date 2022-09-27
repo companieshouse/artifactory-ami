@@ -9,7 +9,7 @@ build {
     playbook_file = "${var.playbook_file_path}"
     extra_arguments  = [
       "-e", "aws_region=${var.aws_region}",
-      "-e", "artifactory-version=${var.artifactory-version}",
+      "-e", "artifactory_version=${var.artifactory_version}",
       "-e", "ssh_username=${var.ssh_username}",
       "-e", "jfrog=${var.jfrog}",
       "-e", "resource_bucket_artifactory_prefix=${var.resource_bucket_artifactory_prefix}",

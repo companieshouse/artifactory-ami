@@ -90,7 +90,7 @@ variable "version" {
   description = "The semantic version number for the AMI; the version string will be appended automatically to the name tags added to the resulting AMI and snapshot(s)"
 }
 
-variable "artifactory-version" {
+variable "artifactory_version" {
   type        = string
   default     = "7.41.12"
   description = "The semantic version number for the Artifactory release"
