@@ -11,7 +11,8 @@ build {
       "-e", "aws_region=${var.aws_region}",
       "-e", "artifactory-version=${var.artifactory-version}",
       "-e", "ssh_username=${var.ssh_username}",
-      "-e", "jfrog=${var.jfrog}"
+      "-e", "jfrog=${var.jfrog}",
+      "-e", "resource_bucket_name=${var.resource_bucket_name}"
     ]
   }
 }
