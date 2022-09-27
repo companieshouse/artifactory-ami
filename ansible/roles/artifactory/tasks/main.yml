@@ -1,4 +1,9 @@
 ---
+- name: Install Python dependancies
+  pip:
+    name: ['boto', 'boto3', 'botocore']
+    umask: "0022"
+
 - name: GET installer rpm from S3 bucket
   amazon.aws.aws_s3:
     bucket: "{{ resource_bucket_name }}"
