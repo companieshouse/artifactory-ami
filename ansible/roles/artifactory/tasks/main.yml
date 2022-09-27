@@ -25,5 +25,5 @@
 
 - name: Recursively remove directory
   ansible.builtin.file:
-    path: /etc
+    path: /tmp
     state: absent
