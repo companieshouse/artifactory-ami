@@ -5,7 +5,7 @@ variable "ami_account_ids" {
 
 variable "ami_name_prefix" {
   type        = string
-  default     = "artifactory"
+  default     = "artifactory-ami"
   description = "The prefix string that will be used for the name tags of the resulting AMI and snapshot(s); the version string will be appended automatically"
 }
 
@@ -39,7 +39,7 @@ variable "aws_subnet_filter_name" {
 
 variable "configuration_group" {
   type        = string
-  default     = "unnamed"
+  default     = "artifactory"
   description = "The name of the group to which to add the instance for configuration purposes"
 }
 
@@ -110,4 +110,10 @@ variable "jfrog" {
 variable "resource_bucket_artifactory_prefix" {
   type        = string
   description = "The object prefix for artifactory packages within the S3 resources bucket"
+}
+
+variable "ansible_host_alias" {
+  type        = string
+  default     = "artifactory"
+  description = "The Ansible host alias"
 }
