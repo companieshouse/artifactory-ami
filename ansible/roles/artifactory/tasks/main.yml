@@ -20,7 +20,7 @@
 
 - name: Install RPM package.
   yum:
-    name: "/{{ ssh_username }}/home/jfrog-artifactory-pro-{{ artifactory_version }}.rpm"
+    name: "/tmp/jfrog-artifactory-pro-{{ artifactory_version }}.rpm"
     state: present
 
 - name: Recursively remove directory
