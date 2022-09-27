@@ -12,6 +12,7 @@ build {
       "-e", "artifactory-version=${var.artifactory-version}",
       "-e", "ssh_username=${var.ssh_username}",
       "-e", "jfrog=${var.jfrog}",
+      "-e", "resource_bucket_grafana_prefix=${var.resource_bucket_grafana_prefix}",
       "-e", "resource_bucket_name=${var.resource_bucket_name}"
     ]
   }
