@@ -45,6 +45,7 @@ variable "configuration_group" {
 
 variable "data_volume_size_gib" {
   type        = number
+  default     = 1
   description = "The EC2 instance data volume size in Gibibytes (GiB)"
 }
 
@@ -104,4 +105,9 @@ variable "jfrog" {
   type        = string
   default     = "https://releases.jfrog.io/artifactory/"
   description = "The base URL for JFrog releases"
+}
+
+variable "resource_bucket_artifactory_prefix" {
+  type        = string
+  description = "The object prefix for artifactory packages within the S3 resources bucket"
 }
