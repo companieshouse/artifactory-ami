@@ -1,5 +1,5 @@
 ---
-- name: Install Python dependancies
+- name: Install Python dependencies
   pip:
     name: ['boto', 'boto3', 'botocore']
     umask: "0022"
