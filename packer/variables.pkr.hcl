@@ -101,7 +101,7 @@ variable "resource_bucket_name" {
   description = "The name of the S3 resources bucket"
 }
 
-variable "jfrog" {
+variable "jfrog_release_url" {
   type        = string
   default     = "https://releases.jfrog.io/artifactory/"
   description = "The base URL for JFrog releases"
