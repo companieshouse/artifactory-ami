@@ -27,3 +27,8 @@
   ansible.builtin.file:
     path: /tmp
     state: absent
+
+- name: Stop the service
+  service:
+    name: artifactory
+    state: stopped
