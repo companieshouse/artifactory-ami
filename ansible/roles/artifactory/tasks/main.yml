@@ -32,3 +32,8 @@
   service:
     name: artifactory
     state: stopped
+
+- name: Disable the service
+  service:
+    name: artifactory
+    enabled: no
