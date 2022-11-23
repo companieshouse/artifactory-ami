@@ -1,31 +1,35 @@
 ---
 - name: Install Python dependencies
   pip:
-    name: ['boto', 'boto3', 'botocore']
+    name: [
+      'boto',
+      'boto3',
+      'botocore'
+    ]
     umask: "0022"
 
-- name: Create a directory if it does not exist
-  ansible.builtin.file:
-    path: /tmp
+# Create temporary directory for build artifacts
+- name: Create temporary build directory
+  tempfile:
     state: directory
-    mode: '0755'
+  register: tempfile
 
 
 - name: GET installer rpm from S3 bucket
   amazon.aws.aws_s3:
     bucket: "{{ resource_bucket_name }}"
     object: "{{ resource_bucket_artifactory_prefix }}/jfrog-artifactory-pro-{{ artifactory_version }}.rpm"
-    dest: "/tmp/jfrog-artifactory-pro-{{ artifactory_version }}.rpm"
+    dest: "/tempfile/jfrog-artifactory-pro-{{ artifactory_version }}.rpm"
     mode: get
 
 - name: Install RPM package.
   yum:
-    name: "/tmp/jfrog-artifactory-pro-{{ artifactory_version }}.rpm"
+    name: "/tempfile/jfrog-artifactory-pro-{{ artifactory_version }}.rpm"
     state: present
 
 - name: Recursively remove directory
   ansible.builtin.file:
-    path: /tmp
+    path: /tempfile
     state: absent
 
 - name: Stop the service
