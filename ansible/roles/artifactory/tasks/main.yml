@@ -8,7 +8,6 @@
     ]
     umask: "0022"
 
-# Create temporary directory for build artifacts
 - name: Create temporary build directory
   tempfile:
     state: directory
