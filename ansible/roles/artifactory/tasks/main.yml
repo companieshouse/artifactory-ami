@@ -25,7 +25,7 @@
     name: "{{ tempfile.path }}/{{ artifactory_package }}"
     state: present
 
-- name: Recursively remove directory
+- name: Remove temporary build directory
   ansible.builtin.file:
     path: "{{ tempfile.path }}"
     state: absent
@@ -33,9 +33,9 @@
 - name: Stop the service
   service:
     name: artifactory
-    state: started
+    state: stopped
 
 - name: Disable the service
   service:
     name: artifactory
-    enabled: yes
+    enabled: no
