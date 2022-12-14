@@ -1,0 +1,41 @@
+---
+- name: Install Python dependencies
+  pip:
+    name: [
+      'boto',
+      'boto3',
+      'botocore'
+    ]
+    umask: "0022"
+
+- name: Create temporary build directory
+  tempfile:
+    state: directory
+  register: tempfile
+
+- name: GET installer rpm from S3 bucket
+  amazon.aws.aws_s3:
+    bucket: "{{ resource_bucket_name }}"
+    object: "{{ resource_bucket_artifactory_prefix }}/{{ artifactory_package }}"
+    dest: "{{ tempfile.path }}/{{ artifactory_package }}"
+    mode: get
+
+- name: Install RPM package.
+  yum:
+    name: "{{ tempfile.path }}/{{ artifactory_package }}"
+    state: present
+
+- name: Remove temporary build directory
+  ansible.builtin.file:
+    path: "{{ tempfile.path }}"
+    state: absent
+
+- name: Stop the service
+  service:
+    name: artifactory
+    state: stopped
+
+- name: Disable the service
+  service:
+    name: artifactory
+    enabled: no

@@ -5,7 +5,7 @@ regions:
   - eu-west-2
 
 filters:
-  tag:AMI: unnamed
+  tag:AMI: artifactory
   tag:Service: packer-development
   tag:Team: platform
 

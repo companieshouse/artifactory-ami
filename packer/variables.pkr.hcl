@@ -5,7 +5,7 @@ variable "ami_account_ids" {
 
 variable "ami_name_prefix" {
   type        = string
-  default     = "unnamed"
+  default     = "artifactory"
   description = "The prefix string that will be used for the name tags of the resulting AMI and snapshot(s); the version string will be appended automatically"
 }
 
@@ -39,12 +39,13 @@ variable "aws_subnet_filter_name" {
 
 variable "configuration_group" {
   type        = string
-  default     = "unnamed"
+  default     = "artifactory"
   description = "The name of the group to which to add the instance for configuration purposes"
 }
 
 variable "data_volume_size_gib" {
   type        = number
+  default     = 1
   description = "The EC2 instance data volume size in Gibibytes (GiB)"
 }
 
@@ -87,4 +88,26 @@ variable "ssh_username" {
 variable "version" {
   type        = string
   description = "The semantic version number for the AMI; the version string will be appended automatically to the name tags added to the resulting AMI and snapshot(s)"
+}
+
+variable "artifactory_version" {
+  type        = string
+  default     = "7.41.12"
+  description = "The semantic version number for the Artifactory release"
+}
+
+variable "resource_bucket_name" {
+  type        = string
+  description = "The name of the S3 resources bucket"
+}
+
+variable "jfrog_release_url" {
+  type        = string
+  default     = "https://releases.jfrog.io/artifactory/"
+  description = "The base URL for JFrog releases"
+}
+
+variable "resource_bucket_artifactory_prefix" {
+  type        = string
+  description = "The object prefix for artifactory packages within the S3 resources bucket"
 }
