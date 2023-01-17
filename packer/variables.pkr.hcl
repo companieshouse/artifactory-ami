@@ -101,6 +101,12 @@ variable "resource_bucket_name" {
   description = "The name of the S3 resources bucket"
 }
 
+variable "swap_volume_size_gb" {
+  type        = number
+  default     = 0
+  description = "The size of the swap volume in gigabytes"
+}
+
 variable "jfrog_release_url" {
   type        = string
   default     = "https://releases.jfrog.io/artifactory/"
