@@ -42,7 +42,7 @@
 
 - name: Installing Mysql and dependencies
   package:
-    name: "{{item}}"
+    name: "{{ item }}"
     state: present
     update_cache: yes
     loop:
