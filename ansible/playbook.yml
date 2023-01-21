@@ -3,5 +3,3 @@
   become: true
   roles:
     - role: artifactory
-    - role: geerlingguy.mysql
-      mysql_enabled_on_startup: true

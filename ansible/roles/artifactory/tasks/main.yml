@@ -39,3 +39,17 @@
   service:
     name: artifactory
     enabled: no
+
+- name: Installing Mysql and dependencies
+  package:
+    name: "{{item}}"
+    state: present
+    update_cache: yes
+    loop:
+      - mysql-server
+      - mysql-client
+      - python3-mysqldb
+      - libmysqlclient-dev
+
+- name: update
+  shell: yum update -y
