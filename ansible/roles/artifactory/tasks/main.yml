@@ -40,16 +40,27 @@
     name: artifactory
     enabled: no
 
-- name: Installing Mysql and dependencies
-  package:
-    name: "{{ item }}"
+- name: Create temporary build directory
+  tempfile:
+    state: directory
+  register: tempfile
+
+- name: GET installer rpm from S3 bucket
+  amazon.aws.aws_s3:
+    bucket: "{{ resource_bucket_name }}"
+    object: "{{ resource_bucket_artifactory_prefix }}/{{ sql_package }}"
+    dest: "{{ tempfile.path }}/{{ sql_package }}"
+    mode: get
+
+- name: Install RPM package.
+  yum:
+    name: "{{ tempfile.path }}/{{ sql_package }}"
     state: present
-    update_cache: yes
-  loop:
-    - mysql-server
-    - mysql-client
-    - python3-mysqldb
-    - libmysqlclient-dev
+
+- name: Remove temporary build directory
+  ansible.builtin.file:
+    path: "{{ tempfile.path }}"
+    state: absent
 
 - name: update
   shell: yum update -y
