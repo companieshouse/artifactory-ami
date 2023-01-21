@@ -2,4 +2,6 @@
 - hosts: artifactory
   become: true
   roles:
-    - artifactory
+    - role: artifactory
+    - role: geerlingguy.mysql
+      mysql_enabled_on_startup: true
