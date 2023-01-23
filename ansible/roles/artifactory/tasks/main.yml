@@ -62,11 +62,6 @@
     path: "{{ tempfile.path }}"
     state: absent
 
-- name: Upgrade all packages
-  ansible.builtin.yum:
-    name: '*'
-    state: latest
-
 - name: install EPEL
   yum:
     name: epel-release
@@ -74,3 +69,8 @@
 
 - name: export jfrog home
   command: echo 'export JFROG_HOME="/opt/jfrog"' >> ~/.bash_profile
+
+- name: Upgrade all packages
+  ansible.builtin.yum:
+    name: '*'
+    state: latest
