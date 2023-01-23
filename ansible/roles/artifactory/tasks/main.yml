@@ -73,4 +73,4 @@
     state: latest
 
 - name: export jfrog home
-  command: export JFROG_HOME="/opt/jfrog"
+  command: echo 'export JFROG_HOME="/opt/jfrog"' >> ~/.bash_profile
