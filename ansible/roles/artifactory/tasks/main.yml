@@ -66,3 +66,11 @@
   ansible.builtin.yum:
     name: '*'
     state: latest
+
+- name: install EPEL
+  yum:
+    name: epel-release
+    state: latest
+
+- name: export jfrog home
+  command: export JFROG_HOME="/opt/jfrog"
