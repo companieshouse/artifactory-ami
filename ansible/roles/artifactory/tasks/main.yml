@@ -8,34 +8,64 @@
     ]
     umask: "0022"
 
-- name: Create temporary build directory
+- name: Create temporary build directory to install artifactory
   tempfile:
     state: directory
   register: tempfile
 
-- name: GET installer rpm from S3 bucket
+- name: GET Artifactory installer rpm from S3 bucket
   amazon.aws.aws_s3:
     bucket: "{{ resource_bucket_name }}"
     object: "{{ resource_bucket_artifactory_prefix }}/{{ artifactory_package }}"
     dest: "{{ tempfile.path }}/{{ artifactory_package }}"
     mode: get
 
-- name: Install RPM package.
+- name: Install Artifactory RPM package.
   yum:
     name: "{{ tempfile.path }}/{{ artifactory_package }}"
     state: present
 
-- name: Remove temporary build directory
+- name: Remove temporary artifactory build directory
   ansible.builtin.file:
     path: "{{ tempfile.path }}"
     state: absent
 
-- name: Stop the service
+- name: Stop the artifactory service
   service:
     name: artifactory
     state: stopped
 
-- name: Disable the service
+- name: Disable the artifactory service
   service:
     name: artifactory
     enabled: no
+
+- name: Create temporary build directory to install mysql
+  tempfile:
+    state: directory
+  register: tempfile
+
+- name: GET MySQL installer rpm from S3 bucket
+  amazon.aws.aws_s3:
+    bucket: "{{ resource_bucket_name }}"
+    object: "{{ resource_bucket_artifactory_prefix }}/{{ sql_package }}"
+    dest: "{{ tempfile.path }}/{{ sql_package }}"
+    mode: get
+
+- name: Install RPM MySQL package.
+  yum:
+    name: "{{ tempfile.path }}/{{ sql_package }}"
+    state: present
+
+- name: Remove MySQL temporary build directory
+  ansible.builtin.file:
+    path: "{{ tempfile.path }}"
+    state: absent
+
+- name: install EPEL
+  yum:
+    name: epel-release
+    state: latest
+
+- name: export jfrog home
+  command: echo 'export JFROG_HOME="/opt/jfrog"' >> ~/.bash_profile
