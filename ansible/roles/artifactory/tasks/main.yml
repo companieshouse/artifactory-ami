@@ -69,8 +69,3 @@
 
 - name: export jfrog home
   command: echo 'export JFROG_HOME="/opt/jfrog"' >> ~/.bash_profile
-
-- name: Upgrade all packages
-  ansible.builtin.yum:
-    name: '*'
-    state: latest
