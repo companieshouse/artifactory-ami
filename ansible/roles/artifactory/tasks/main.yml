@@ -67,5 +67,11 @@
     name: epel-release
     state: latest
 
-- name: export jfrog home
-  command: echo 'export JFROG_HOME="/opt/jfrog"' >> ~/.bash_profile
+- name: Configure JFrog environment
+  copy:
+    mode: 0644
+    owner: root
+    group: root
+    dest: "/etc/profile.d/artifactory.sh"
+    content: |
+      export JFROG_HOME="/opt/jfrog"
