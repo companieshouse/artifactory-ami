@@ -1,3 +1,2 @@
 artifactory_version: "7.41.12"
 artifactory_package: "jfrog-artifactory-pro-{{ artifactory_version }}.rpm"
-sql_package: "mysql80-community-release-el7-5.noarch.rpm"
