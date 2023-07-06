@@ -25,6 +25,13 @@ source "amazon-ebs" "builder" {
     delete_on_termination = true
   }
 
+  launch_block_device_mappings {
+    device_name = "/dev/xvdc"
+    volume_size = var.extract_volume_size_gb
+    volume_type = "gp2"
+    delete_on_termination = true
+  }
+
   security_group_filter {
     filters = {
       "group-name": "packer-builders-${var.aws_region}"
