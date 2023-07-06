@@ -49,7 +49,7 @@ variable "root_volume_size_gb" {
   description = "The EC2 instance root volume size in Gibibytes (GiB)"
 }
 
-variable "data_volume_size_gib" {
+variable "data_volume_size_gb" {
   type        = number
   default     = 100
   description = "The EC2 instance data volume size in Gibibytes (GiB)"
