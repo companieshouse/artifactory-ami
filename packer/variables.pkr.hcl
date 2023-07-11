@@ -55,10 +55,10 @@ variable "data_volume_size_gb" {
   description = "The EC2 instance data volume size in Gibibytes (GiB)"
 }
 
-variable "extract_volume_size_gb" {
+variable "export_volume_size_gb" {
   type        = number
   default     = 100
-  description = "The size of the extract volume in gigabytes"
+  description = "The size of the export volume in gigabytes"
 }
 
 variable "force_delete_snapshot" {
