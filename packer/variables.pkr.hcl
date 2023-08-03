@@ -67,12 +67,6 @@ variable "volume_delete_on_termination" {
   description = "Indicates whether the EBS volume is deleted on instance termination"
 }
 
-variable "volume_encrypted" {
-  type        = bool
-  default     = true
-  description = "Indicates whether or not to encrypt the volume."
-}
-
 variable "force_delete_snapshot" {
   type        = bool
   default     = false

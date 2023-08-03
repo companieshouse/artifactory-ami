@@ -16,7 +16,6 @@ source "amazon-ebs" "builder" {
     volume_size           = var.root_volume_size_gb
     volume_type           = "gp2"
     delete_on_termination = var.volume_delete_on_termination
-    encrypted             = var.volume_encrypted
   }
 
   launch_block_device_mappings {
@@ -24,7 +23,6 @@ source "amazon-ebs" "builder" {
     volume_size           = var.data_volume_size_gb
     volume_type           = "gp2"
     delete_on_termination = var.volume_delete_on_termination
-    encrypted             = var.volume_encrypted
   }
 
   launch_block_device_mappings {
@@ -32,7 +30,6 @@ source "amazon-ebs" "builder" {
     volume_size           = var.export_volume_size_gb
     volume_type           = "gp2"
     delete_on_termination = var.volume_delete_on_termination
-    encrypted             = var.volume_encrypted
   }
 
   security_group_filter {
