@@ -8,6 +8,11 @@
     ]
     umask: "0022"
 
+- name: upgrade all packages
+  yum: 
+    name: '*'
+    state: latest
+
 - name: Create temporary build directory to install artifactory
   tempfile:
     state: directory
@@ -53,3 +58,6 @@
     dest: "/etc/profile.d/artifactory.sh"
     content: |
       export JFROG_HOME="/opt/jfrog"
+
+- name: Unconditionally reboot the machine with all defaults
+  reboot:

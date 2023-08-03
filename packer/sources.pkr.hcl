@@ -12,24 +12,27 @@ source "amazon-ebs" "builder" {
   iam_instance_profile  = "packer-builders-${var.aws_region}"
 
   launch_block_device_mappings {
-    device_name = "/dev/xvda"
-    volume_size = var.root_volume_size_gb
-    volume_type = "gp2"
-    delete_on_termination = true
+    device_name           = "/dev/xvda"
+    volume_size           = var.root_volume_size_gb
+    volume_type           = "gp2"
+    delete_on_termination = var.volume_delete_on_termination
+    encrypted             = var.volume_encrypted
   }
 
   launch_block_device_mappings {
-    device_name = "/dev/xvdb"
-    volume_size = var.data_volume_size_gb
-    volume_type = "gp2"
-    delete_on_termination = false
+    device_name           = "/dev/xvdb"
+    volume_size           = var.data_volume_size_gb
+    volume_type           = "gp2"
+    delete_on_termination = var.volume_delete_on_termination
+    encrypted             = var.volume_encrypted
   }
 
   launch_block_device_mappings {
-    device_name = "/dev/xvdc"
-    volume_size = var.export_volume_size_gb
-    volume_type = "gp2"
-    delete_on_termination = false
+    device_name           = "/dev/xvdc"
+    volume_size           = var.export_volume_size_gb
+    volume_type           = "gp2"
+    delete_on_termination = var.volume_delete_on_termination
+    encrypted             = var.volume_encrypted
   }
 
   security_group_filter {
