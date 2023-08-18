@@ -104,7 +104,7 @@ variable "version" {
 
 variable "artifactory_version" {
   type        = string
-  default     = "7.41.12"
+  default     = "7.63.12"
   description = "The semantic version number for the Artifactory release"
 }
 
