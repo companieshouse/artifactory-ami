@@ -17,7 +17,6 @@
    command: /sbin/reboot
 
 -  name: Wait for the reboot and reconnect
-   sudo: no
    local_action:
      module: wait_for
        host="{{ inventory_hostname }}"
