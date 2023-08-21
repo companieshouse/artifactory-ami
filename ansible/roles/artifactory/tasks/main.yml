@@ -21,10 +21,10 @@
 
 -  name: Wait for the reboot and reconnect
    wait_for:
-     host: "{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}"
+     host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
      port: 22
-     delay: 15
-   delegate_to: localhost
+     delay: 10
+   connection: local
 
 - name: Create temporary build directory to install artifactory
   tempfile:
