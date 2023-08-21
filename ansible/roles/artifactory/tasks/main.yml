@@ -16,7 +16,7 @@
 -  name: reboot the server
    shell: 'sleep 1 && shutdown -r now "Reboot triggered by Ansible" && sleep 1'
    async: 1
-   poll: 0
+   poll: 1
    ignore_errors: true
    become: true
 #   shell: (sleep 2 && shutdown -r now) &
