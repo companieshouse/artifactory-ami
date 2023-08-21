@@ -13,6 +13,22 @@
     name: '*'
     state: latest
 
+-  name: reboot the server
+   shell: 'sleep 1 && shutdown -r now "Reboot triggered by Ansible" && sleep 1'
+   async: 1
+   poll: 0
+   ignore_errors: true
+   become: true
+
+-  name: Wait for the reboot and reconnect
+   wait_for:
+     port: 22
+     host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
+     search_regex: OpenSSH
+     delay: 10
+     timeout: 60
+   connection: local
+
 - name: Create temporary build directory to install artifactory
   tempfile:
     state: directory
@@ -58,6 +74,3 @@
     dest: "/etc/profile.d/artifactory.sh"
     content: |
       export JFROG_HOME="/opt/jfrog"
-
-- name: Unconditionally reboot the machine with all defaults
-  reboot:
