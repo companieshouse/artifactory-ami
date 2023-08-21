@@ -14,20 +14,17 @@
     state: latest
 
 -  name: reboot the server
-   shell: 'sleep 1 && shutdown -r now "Reboot triggered by Ansible" && sleep 1'
-   async: 1
-   poll: 0
-   ignore_errors: true
-   become: true
+   command: /sbin/reboot
 
 -  name: Wait for the reboot and reconnect
-   wait_for:
-     port: 22
-     host: '{{ (ansible_ssh_host|default(ansible_host))|default(inventory_hostname) }}'
-     search_regex: OpenSSH
-     delay: 10
-     timeout: 60
-   connection: local
+   sudo: no
+   local_action:
+     module: wait_for
+       host="{{ inventory_hostname }}"
+       search_regex=OpenSSH
+       port=22
+       delay=1
+       timeout=300
 
 - name: Create temporary build directory to install artifactory
   tempfile:
