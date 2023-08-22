@@ -8,6 +8,17 @@
     ]
     umask: "0022"
 
+- name: upgrade all packages
+  yum: 
+    name: '*'
+    state: latest
+
+- name: Reboot the server
+  reboot:
+    connect_timeout: 90
+    post_reboot_delay: 90
+    msg: "Reboot initiated by Ansible"
+
 - name: Create temporary build directory to install artifactory
   tempfile:
     state: directory

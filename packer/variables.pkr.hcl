@@ -43,10 +43,28 @@ variable "configuration_group" {
   description = "The name of the group to which to add the instance for configuration purposes"
 }
 
-variable "data_volume_size_gib" {
+variable "root_volume_size_gb" {
   type        = number
-  default     = 1
+  default     = 20
+  description = "The EC2 instance root volume size in Gibibytes (GiB)"
+}
+
+variable "data_volume_size_gb" {
+  type        = number
+  default     = 100
   description = "The EC2 instance data volume size in Gibibytes (GiB)"
+}
+
+variable "export_volume_size_gb" {
+  type        = number
+  default     = 100
+  description = "The size of the export volume in gigabytes"
+}
+
+variable "volume_delete_on_termination" {
+  type        = bool
+  default     = false
+  description = "Indicates whether the EBS volume is deleted on instance termination"
 }
 
 variable "force_delete_snapshot" {
@@ -65,12 +83,6 @@ variable "playbook_file_path" {
   type        = string
   default     = "../ansible/playbook.yml"
   description = "The relative path to the Ansible playbook file"
-}
-
-variable "root_volume_size_gb" {
-  type        = number
-  default     = 20
-  description = "The EC2 instance root volume size in Gibibytes (GiB)"
 }
 
 variable "ssh_private_key_file" {
@@ -92,19 +104,13 @@ variable "version" {
 
 variable "artifactory_version" {
   type        = string
-  default     = "7.41.12"
+  default     = "7.63.12"
   description = "The semantic version number for the Artifactory release"
 }
 
 variable "resource_bucket_name" {
   type        = string
   description = "The name of the S3 resources bucket"
-}
-
-variable "swap_volume_size_gb" {
-  type        = number
-  default     = 0
-  description = "The size of the swap volume in gigabytes"
 }
 
 variable "jfrog_release_url" {
