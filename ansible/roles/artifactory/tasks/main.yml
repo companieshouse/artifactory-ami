@@ -13,18 +13,25 @@
     name: '*'
     state: latest
 
--  name: reboot the server
-   shell: (sleep 2 && shutdown -r now) &
-   async: 1
-   poll: 0
-   ignore_errors: true
+- name: Reboot the server
+  reboot:
+    connect_timeout: 60
+    post_reboot_delay: 20
+    test_command: "whoami"
+    msg: "Reboot initiated by Ansible"
 
--  name: Wait for the reboot
-   wait_for_connection:
-     connect_timeout: 60
-     sleep: 5
-     delay: 5
-     timeout: 120
+#-  name: reboot the server
+#   shell: (sleep 2 && shutdown -r now) &
+#   async: 1
+#   poll: 0
+#   ignore_errors: true
+
+#-  name: Wait for the reboot
+#   wait_for_connection:
+#     connect_timeout: 60
+#     sleep: 5
+#     delay: 5
+#     timeout: 120
 
 - name: Create temporary build directory to install artifactory
   tempfile:
