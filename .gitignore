@@ -2,4 +2,4 @@
 .DS_Store
 ._*
 
-development/*.json
+shared-services/*.json
