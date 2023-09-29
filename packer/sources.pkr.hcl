@@ -16,7 +16,6 @@ source "amazon-ebs" "builder" {
     volume_size           = var.root_volume_size_gb
     volume_type           = "gp3"
     delete_on_termination = var.volume_delete_on_termination
-    throughput            = var.volume_throughput
     iops                  = var.volume_iops
   }
 
@@ -25,7 +24,6 @@ source "amazon-ebs" "builder" {
     volume_size           = var.data_volume_size_gb
     volume_type           = "gp3"
     delete_on_termination = var.volume_delete_on_termination
-    throughput            = var.volume_throughput
     iops                  = var.volume_iops
   }
 
@@ -34,7 +32,6 @@ source "amazon-ebs" "builder" {
     volume_size           = var.export_volume_size_gb
     volume_type           = "gp3"
     delete_on_termination = var.volume_delete_on_termination
-    throughput            = var.volume_throughput
     iops                  = var.volume_iops
   }
 

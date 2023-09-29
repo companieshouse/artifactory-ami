@@ -67,12 +67,6 @@ variable "volume_delete_on_termination" {
   description = "Indicates whether the EBS volume is deleted on instance termination"
 }
 
-variable "volume_throughput" {
-  type        = number
-  default     = 125
-  description = "The amount of provisioned throughput"
-}
-
 variable "volume_iops" {
   type        = number
   default     = 3000
