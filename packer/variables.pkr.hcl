@@ -55,12 +55,6 @@ variable "data_volume_size_gb" {
   description = "The EC2 instance data volume size in Gibibytes (GiB)"
 }
 
-variable "export_volume_size_gb" {
-  type        = number
-  default     = 100
-  description = "The size of the export volume in gigabytes"
-}
-
 variable "volume_delete_on_termination" {
   type        = bool
   default     = false
