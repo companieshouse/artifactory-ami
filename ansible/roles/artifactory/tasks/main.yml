@@ -56,6 +56,11 @@
     name: epel-release
     state: latest
 
+- name: install efs utils
+  yum:
+    name: amazon-efs-utils
+    state: latest
+
 - name: Configure JFrog environment
   copy:
     mode: 0644
