@@ -27,14 +27,6 @@ source "amazon-ebs" "builder" {
     iops                  = var.volume_iops
   }
 
-  launch_block_device_mappings {
-    device_name           = "/dev/xvdc"
-    volume_size           = var.export_volume_size_gb
-    volume_type           = "gp3"
-    delete_on_termination = var.volume_delete_on_termination
-    iops                  = var.volume_iops
-  }
-
   security_group_filter {
     filters = {
       "group-name": "packer-builders-${var.aws_region}"
