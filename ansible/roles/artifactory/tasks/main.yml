@@ -69,3 +69,9 @@
     dest: "/etc/profile.d/artifactory.sh"
     content: |
       export JFROG_HOME="/opt/jfrog"
+
+- name: Enable compress for logrotate syslog configuration
+  ansible.builtin.lineinfile:
+    path: "/etc/logrotate.d/syslog.conf"
+    insertafter: 'sharedscripts'
+    line: 'compress'
