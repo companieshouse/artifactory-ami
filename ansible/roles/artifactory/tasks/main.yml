@@ -75,3 +75,9 @@
     path: "/etc/logrotate.d/syslog"
     insertafter: 'sharedscripts'
     line: 'compress'
+
+- name: Create the EFS directory if it does not exist
+  ansible.builtin.file:
+    path: /var/lib/artifactory
+    state: directory
+    mode: '0755'
