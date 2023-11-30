@@ -74,7 +74,7 @@
   ansible.builtin.lineinfile:
     path: "/etc/logrotate.d/syslog"
     insertafter: 'sharedscripts'
-    line: 'compress'
+    line: '    compress'
 
 - name: Create the EFS directory
   ansible.builtin.file:
