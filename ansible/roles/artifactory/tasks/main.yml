@@ -76,7 +76,7 @@
     insertafter: 'sharedscripts'
     line: 'compress'
 
-- name: Create the EFS directory if it does not exist
+- name: Create the EFS directory
   ansible.builtin.file:
-    path: "/var/lib/artifactory"
+    path: /var/lib/artifactory
     state: directory
