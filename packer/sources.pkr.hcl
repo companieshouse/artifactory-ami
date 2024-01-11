@@ -17,6 +17,7 @@ source "amazon-ebs" "builder" {
     volume_type           = "gp3"
     delete_on_termination = var.volume_delete_on_termination
     iops                  = var.volume_iops
+    encrypted             = true
   }
 
   launch_block_device_mappings {
@@ -25,6 +26,7 @@ source "amazon-ebs" "builder" {
     volume_type           = "gp3"
     delete_on_termination = var.volume_delete_on_termination
     iops                  = var.volume_iops
+    encrypted             = var.volume_encrypted
   }
 
   security_group_filter {
@@ -57,6 +59,11 @@ source "amazon-ebs" "builder" {
   }
 
   tags = {
+    Builder = "packer-{{packer_version}}"
+    Name    = "${var.ami_name_prefix}-${var.version}"
+  }
+
+  run_volume_tags = {
     Builder = "packer-{{packer_version}}"
     Name    = "${var.ami_name_prefix}-${var.version}"
   }

@@ -67,6 +67,12 @@ variable "volume_iops" {
   description = "The amount of provisioned IOPS"
 }
 
+variable "volume_encrypted" {
+  type        = bool
+  default     = true
+  description = "The boolean for encryption of the EBS volume"
+}
+
 variable "force_delete_snapshot" {
   type        = bool
   default     = false
