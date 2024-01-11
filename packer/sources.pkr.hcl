@@ -17,7 +17,7 @@ source "amazon-ebs" "builder" {
     volume_type           = "gp3"
     delete_on_termination = var.volume_delete_on_termination
     iops                  = var.volume_iops
-    encrypted             = true
+    encrypted             = var.volume_encrypted
   }
 
   launch_block_device_mappings {
