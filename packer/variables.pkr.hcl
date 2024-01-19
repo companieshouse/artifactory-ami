@@ -49,12 +49,6 @@ variable "root_volume_size_gb" {
   description = "The EC2 instance root volume size in Gibibytes (GiB)"
 }
 
-variable "data_volume_size_gb" {
-  type        = number
-  default     = 100
-  description = "The EC2 instance data volume size in Gibibytes (GiB)"
-}
-
 variable "volume_delete_on_termination" {
   type        = bool
   default     = false
@@ -65,12 +59,6 @@ variable "volume_iops" {
   type        = number
   default     = 3000
   description = "The amount of provisioned IOPS"
-}
-
-variable "volume_encrypted" {
-  type        = bool
-  default     = true
-  description = "The boolean for encryption of the EBS volume"
 }
 
 variable "force_delete_snapshot" {
