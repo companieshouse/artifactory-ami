@@ -23,7 +23,7 @@ variable "aws_region" {
 
 variable "aws_source_ami_filter_name" {
   type        = string
-  default     = "al2023-ami-*-x86_64"
+  default     = "al2023-ami-2023.*-x86_64"
   description = "The source AMI filter string. Any filter described by the DescribeImages API documentation is valid. If multiple images match then the latest will be used"
 }
 
