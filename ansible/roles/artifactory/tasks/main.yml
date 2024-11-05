@@ -31,9 +31,10 @@
     dest: "/root/{{ artifactory_package }}"
     mode: get
 
-- name: Install Artifactory RPM package.
+- name: Install Artifactory RPM package
   ansible.builtin.dnf:
     name: "/root/{{ artifactory_package }}"
+    disable_gpg_check: true
     state: present
 
 - name: Remove Artifactory installer RPM
