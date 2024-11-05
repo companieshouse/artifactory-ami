@@ -43,19 +43,25 @@ variable "configuration_group" {
   description = "The name of the group to which to add the instance for configuration purposes"
 }
 
+variable "kms_key_id" {
+  type        = string
+  default     = "alias/packer-builders-kms"
+  description = "The KMS key ID or alias to use when encrypting the AMI EBS volumes; defaults to the AWS managed key if empty"
+}
+
 variable "root_volume_size_gb" {
   type        = number
   default     = 20
   description = "The EC2 instance root volume size in Gibibytes (GiB)"
 }
 
-variable "volume_delete_on_termination" {
+variable "root_volume_delete_on_termination" {
   type        = bool
   default     = false
   description = "Indicates whether the EBS volume is deleted on instance termination"
 }
 
-variable "volume_iops" {
+variable "root_volume_iops" {
   type        = number
   default     = 3000
   description = "The amount of provisioned IOPS"

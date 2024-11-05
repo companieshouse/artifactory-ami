@@ -12,11 +12,14 @@ source "amazon-ebs" "builder" {
   iam_instance_profile  = "packer-builders-${var.aws_region}"
 
   launch_block_device_mappings {
+    delete_on_termination = var.root_volume_delete_on_termination
     device_name           = "/dev/xvda"
+    encrypted             = true
+    iops                  = var.root_volume_iops
+    kms_key_id            = var.kms_key_id
+    throughput            = var.root_volume_throughput
     volume_size           = var.root_volume_size_gb
     volume_type           = "gp3"
-    delete_on_termination = var.volume_delete_on_termination
-    iops                  = var.volume_iops
   }
 
   security_group_filter {
