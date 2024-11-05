@@ -98,19 +98,13 @@ variable "version" {
 
 variable "artifactory_version" {
   type        = string
-  default     = "7.71.4"
+  default     = "7.77.14"
   description = "The semantic version number for the Artifactory release"
 }
 
 variable "resource_bucket_name" {
   type        = string
   description = "The name of the S3 resources bucket"
-}
-
-variable "jfrog_release_url" {
-  type        = string
-  default     = "https://releases.jfrog.io/artifactory/"
-  description = "The base URL for JFrog releases"
 }
 
 variable "resource_bucket_artifactory_prefix" {
