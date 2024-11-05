@@ -24,26 +24,21 @@
     post_reboot_delay: 90
     msg: "Reboot initiated by Ansible"
 
-- name: Create temporary build directory to install artifactory
-  ansible.builtin.tempfile:
-    state: directory
-  register: tempfile
-
-- name: Get Artifactory installer rpm from S3 bucket
+- name: Get Artifactory installer RPM from S3
   amazon.aws.aws_s3:
     bucket: "{{ resource_bucket_name }}"
     object: "{{ resource_bucket_artifactory_prefix }}/{{ artifactory_package }}"
-    dest: "{{ tempfile.path }}/{{ artifactory_package }}"
+    dest: "/root/{{ artifactory_package }}"
     mode: get
 
 - name: Install Artifactory RPM package.
   ansible.builtin.dnf:
-    name: "{{ tempfile.path }}/{{ artifactory_package }}"
+    name: "/root/{{ artifactory_package }}"
     state: present
 
-- name: Remove temporary artifactory build directory
+- name: Remove Artifactory installer RPM
   ansible.builtin.file:
-    path: "{{ tempfile.path }}"
+    path: "/root/{{ artifactory_package }}"
     state: absent
 
 - name: Stop and disable the artifactory service
