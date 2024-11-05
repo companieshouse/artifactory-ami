@@ -44,36 +44,6 @@ variable "configuration_group" {
   description = "The name of the group to which to add the instance for configuration purposes"
 }
 
-variable "kms_key_id" {
-  type        = string
-  default     = "alias/packer-builders-kms"
-  description = "The KMS key ID or alias to use when encrypting the AMI EBS volumes; defaults to the AWS managed key if empty"
-}
-
-variable "root_volume_size_gb" {
-  type        = number
-  default     = 20
-  description = "The EC2 instance root volume size in Gibibytes (GiB)"
-}
-
-variable "root_volume_delete_on_termination" {
-  type        = bool
-  default     = false
-  description = "Indicates whether the EBS volume is deleted on instance termination"
-}
-
-variable "root_volume_iops" {
-  type        = number
-  default     = 3000
-  description = "The volume IOPS; 3000 is the gp3 default"
-}
-
-variable "root_volume_throughput" {
-  type        = number
-  default     = 125
-  description = "The volume throughput in MiB/s; 125 is the gp3 default"
-}
-
 variable "force_delete_snapshot" {
   type        = bool
   default     = false
@@ -86,10 +56,40 @@ variable "force_deregister" {
   description = "Deregister an existing AMI if one with the same name already exists"
 }
 
+variable "kms_key_id" {
+  type        = string
+  default     = "alias/packer-builders-kms"
+  description = "The KMS key ID or alias to use when encrypting the AMI EBS volumes; defaults to the AWS managed key if empty"
+}
+
 variable "playbook_file_path" {
   type        = string
   default     = "../ansible/playbook.yml"
   description = "The relative path to the Ansible playbook file"
+}
+
+variable "root_volume_delete_on_termination" {
+  type        = bool
+  default     = true
+  description = "Indicates whether the EBS volume is deleted on instance termination"
+}
+
+variable "root_volume_iops" {
+  type        = number
+  default     = 3000
+  description = "The volume IOPS; 3000 is the gp3 default"
+}
+
+variable "root_volume_size_gb" {
+  type        = number
+  default     = 20
+  description = "The EC2 instance root volume size in Gibibytes (GiB)"
+}
+
+variable "root_volume_throughput" {
+  type        = number
+  default     = 125
+  description = "The volume throughput in MiB/s; 125 is the gp3 default"
 }
 
 variable "ssh_private_key_file" {
@@ -112,15 +112,15 @@ variable "version" {
 variable "artifactory_version" {
   type        = string
   default     = "7.77.14"
-  description = "The semantic version number for the Artifactory release"
+  description = "The semantic version number for the Artifactory release which is subsequently passed in to Ansible"
 }
 
 variable "resource_bucket_name" {
   type        = string
-  description = "The name of the S3 resources bucket"
+  description = "The name of the S3 resources bucket which is subsequently passed in to Ansible"
 }
 
 variable "resource_bucket_artifactory_prefix" {
   type        = string
-  description = "The object prefix for artifactory packages within the S3 resources bucket"
+  description = "The object prefix for artifactory packages within the S3 resources bucket which is subsequently passed in to Ansible"
 }
