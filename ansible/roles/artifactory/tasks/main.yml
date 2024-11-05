@@ -47,11 +47,6 @@
     enabled: no
     state: stopped
 
-- name: install EPEL
-  ansible.builtin.package:
-    name: epel-release
-    state: latest
-
 - name: install efs utils
   ansible.builtin.package:
     name: amazon-efs-utils
