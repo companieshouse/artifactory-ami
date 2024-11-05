@@ -23,12 +23,13 @@ variable "aws_region" {
 
 variable "aws_source_ami_filter_name" {
   type        = string
-  default     = "amzn2-base-*"
+  default     = "al2023-ami-2023.*-x86_64"
   description = "The source AMI filter string. Any filter described by the DescribeImages API documentation is valid. If multiple images match then the latest will be used"
 }
 
 variable "aws_source_ami_owner_id" {
   type        = string
+  default     = "137112412989"
   description = "The source AMI owner ID; used in combination with aws_source_ami_filter_name to filter for matching source AMIs"
 }
 
@@ -43,22 +44,34 @@ variable "configuration_group" {
   description = "The name of the group to which to add the instance for configuration purposes"
 }
 
+variable "kms_key_id" {
+  type        = string
+  default     = "alias/packer-builders-kms"
+  description = "The KMS key ID or alias to use when encrypting the AMI EBS volumes; defaults to the AWS managed key if empty"
+}
+
 variable "root_volume_size_gb" {
   type        = number
   default     = 20
   description = "The EC2 instance root volume size in Gibibytes (GiB)"
 }
 
-variable "volume_delete_on_termination" {
+variable "root_volume_delete_on_termination" {
   type        = bool
   default     = false
   description = "Indicates whether the EBS volume is deleted on instance termination"
 }
 
-variable "volume_iops" {
+variable "root_volume_iops" {
   type        = number
   default     = 3000
-  description = "The amount of provisioned IOPS"
+  description = "The volume IOPS; 3000 is the gp3 default"
+}
+
+variable "root_volume_throughput" {
+  type        = number
+  default     = 125
+  description = "The volume throughput in MiB/s; 125 is the gp3 default"
 }
 
 variable "force_delete_snapshot" {
@@ -98,19 +111,13 @@ variable "version" {
 
 variable "artifactory_version" {
   type        = string
-  default     = "7.71.4"
+  default     = "7.77.14"
   description = "The semantic version number for the Artifactory release"
 }
 
 variable "resource_bucket_name" {
   type        = string
   description = "The name of the S3 resources bucket"
-}
-
-variable "jfrog_release_url" {
-  type        = string
-  default     = "https://releases.jfrog.io/artifactory/"
-  description = "The base URL for JFrog releases"
 }
 
 variable "resource_bucket_artifactory_prefix" {
