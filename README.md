@@ -1,27 +1,18 @@
-# ami-repository-template
+# artifactory-ami
 
-Provides a base template for Packer and Ansible based AMI builds.
+Packer and Ansible configuration to build an AMI for use with Artifactory
 
-### Ansible
+## Ansible
 
 All Ansible configuration resides in the `./ansible` directory. The Ansible configuration will be called during the provisioning step of the Packer build as defined in `./packer/build.pkr.hcl`.
 
 This template provides the basic code layout and structure only.
 
-### Development
-
-For convenience development scripts have been supplied and are as follows:
-
-| Script                | Description                                                                                                                                       |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| inventory_aws_ec2.yml | Defines a dynamic inventory for Ansible by way of the `aws_ec2` plugin                                                                            |
-| print-inventory       | Prints the inventory hosts for debugging purposes                                                                                                 |
-| run-ansible           | Runs the playbook against the configured hosts. **Note**: This requires Ansible be installed on the host system                                   |
-| variables.json        | A means of specifying additional variables. **Note**: These values should never be committed and as such this file has been added to `.gitignore` |
-
-### Packer Variables
+## Packer
 
 All Packer configuration resides in the `./packer` directory and utilises standard Packer configuration syntax.
+
+### Packer Variables
 
 The template provides the following variables to control the Packer build and provisioning process.
 

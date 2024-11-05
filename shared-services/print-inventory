@@ -1,5 +1,0 @@
-#!/bin/bash
-
-ansible-inventory \
-  --inventory inventory_aws_ec2.yml \
-  --list | jq '.aws_ec2.hosts'
