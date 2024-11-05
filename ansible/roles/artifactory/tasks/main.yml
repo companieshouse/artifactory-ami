@@ -1,6 +1,6 @@
 ---
 - name: Install Python pip
-  ansible.builtin.package:
+  ansible.builtin.dnf:
     name: "python3-pip"
     state: latest
 
@@ -14,7 +14,7 @@
     umask: "0022"
 
 - name: Upgrade all packages
-  ansible.builtin.package: 
+  ansible.builtin.dnf: 
     name: '*'
     state: latest
 
@@ -37,7 +37,7 @@
     mode: get
 
 - name: Install Artifactory RPM package.
-  ansible.builtin.package:
+  ansible.builtin.dnf:
     name: "{{ tempfile.path }}/{{ artifactory_package }}"
     state: present
 
@@ -53,7 +53,7 @@
     state: stopped
 
 - name: install efs utils
-  ansible.builtin.package:
+  ansible.builtin.dnf:
     name: amazon-efs-utils
     state: latest
 
