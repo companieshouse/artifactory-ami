@@ -1,6 +1,6 @@
 ---
 - name: Install Python dependencies
-  pip:
+  ansible.builtin.pip:
     name: [
       'boto',
       'boto3',
@@ -8,23 +8,23 @@
     ]
     umask: "0022"
 
-- name: upgrade all packages
-  yum: 
+- name: Upgrade all packages
+  ansible.builtin.package: 
     name: '*'
     state: latest
 
 - name: Reboot the server
-  reboot:
+  ansible.builtin.reboot:
     connect_timeout: 90
     post_reboot_delay: 90
     msg: "Reboot initiated by Ansible"
 
 - name: Create temporary build directory to install artifactory
-  tempfile:
+  ansible.builtin.tempfile:
     state: directory
   register: tempfile
 
-- name: GET Artifactory installer rpm from S3 bucket
+- name: Get Artifactory installer rpm from S3 bucket
   amazon.aws.aws_s3:
     bucket: "{{ resource_bucket_name }}"
     object: "{{ resource_bucket_artifactory_prefix }}/{{ artifactory_package }}"
@@ -32,7 +32,7 @@
     mode: get
 
 - name: Install Artifactory RPM package.
-  yum:
+  ansible.builtin.package:
     name: "{{ tempfile.path }}/{{ artifactory_package }}"
     state: present
 
@@ -41,28 +41,24 @@
     path: "{{ tempfile.path }}"
     state: absent
 
-- name: Stop the artifactory service
-  service:
-    name: artifactory
-    state: stopped
-
-- name: Disable the artifactory service
-  service:
+- name: Stop and disable the artifactory service
+  ansible.builtin.service:
     name: artifactory
     enabled: no
+    state: stopped
 
 - name: install EPEL
-  yum:
+  ansible.builtin.package:
     name: epel-release
     state: latest
 
 - name: install efs utils
-  yum:
+  ansible.builtin.package:
     name: amazon-efs-utils
     state: latest
 
 - name: Configure JFrog environment
-  copy:
+  ansible.builtin.copy:
     mode: 0644
     owner: root
     group: root
