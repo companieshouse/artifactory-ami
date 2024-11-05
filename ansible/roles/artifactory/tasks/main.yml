@@ -1,6 +1,11 @@
 ---
+- name: Install Python pip
+  ansible.builtin.dnf:
+    name: "python3-pip"
+    state: latest
+
 - name: Install Python dependencies
-  pip:
+  ansible.builtin.pip:
     name: [
       'boto',
       'boto3',
@@ -8,73 +13,48 @@
     ]
     umask: "0022"
 
-- name: upgrade all packages
-  yum: 
+- name: Upgrade all packages
+  ansible.builtin.dnf: 
     name: '*'
     state: latest
 
-- name: Reboot the server
-  reboot:
-    connect_timeout: 90
-    post_reboot_delay: 90
-    msg: "Reboot initiated by Ansible"
-
-- name: Create temporary build directory to install artifactory
-  tempfile:
-    state: directory
-  register: tempfile
-
-- name: GET Artifactory installer rpm from S3 bucket
+- name: Get Artifactory installer RPM from S3
   amazon.aws.aws_s3:
     bucket: "{{ resource_bucket_name }}"
     object: "{{ resource_bucket_artifactory_prefix }}/{{ artifactory_package }}"
-    dest: "{{ tempfile.path }}/{{ artifactory_package }}"
+    dest: "/root/{{ artifactory_package }}"
     mode: get
 
-- name: Install Artifactory RPM package.
-  yum:
-    name: "{{ tempfile.path }}/{{ artifactory_package }}"
+- name: Install Artifactory RPM package
+  ansible.builtin.dnf:
+    name: "/root/{{ artifactory_package }}"
+    disable_gpg_check: true
     state: present
 
-- name: Remove temporary artifactory build directory
+- name: Remove Artifactory installer RPM
   ansible.builtin.file:
-    path: "{{ tempfile.path }}"
+    path: "/root/{{ artifactory_package }}"
     state: absent
 
-- name: Stop the artifactory service
-  service:
-    name: artifactory
-    state: stopped
-
-- name: Disable the artifactory service
-  service:
+- name: Stop and disable the artifactory service
+  ansible.builtin.service:
     name: artifactory
     enabled: no
-
-- name: install EPEL
-  yum:
-    name: epel-release
-    state: latest
+    state: stopped
 
 - name: install efs utils
-  yum:
+  ansible.builtin.dnf:
     name: amazon-efs-utils
     state: latest
 
 - name: Configure JFrog environment
-  copy:
+  ansible.builtin.copy:
     mode: 0644
     owner: root
     group: root
     dest: "/etc/profile.d/artifactory.sh"
     content: |
       export JFROG_HOME="/opt/jfrog"
-
-- name: Enable compress for logrotate syslog configuration
-  ansible.builtin.lineinfile:
-    path: "/etc/logrotate.d/syslog"
-    insertafter: 'sharedscripts'
-    line: '    compress'
 
 - name: Create the EFS directory
   ansible.builtin.file:
