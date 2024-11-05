@@ -18,12 +18,6 @@
     name: '*'
     state: latest
 
-- name: Reboot the server
-  ansible.builtin.reboot:
-    connect_timeout: 90
-    post_reboot_delay: 90
-    msg: "Reboot initiated by Ansible"
-
 - name: Get Artifactory installer RPM from S3
   amazon.aws.aws_s3:
     bucket: "{{ resource_bucket_name }}"
