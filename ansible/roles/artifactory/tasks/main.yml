@@ -1,4 +1,9 @@
 ---
+- name: Install Python pip
+  ansible.builtin.package:
+    name: "python3-pip"
+    state: latest
+
 - name: Install Python dependencies
   ansible.builtin.pip:
     name: [
