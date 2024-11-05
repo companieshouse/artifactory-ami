@@ -64,7 +64,13 @@ variable "root_volume_delete_on_termination" {
 variable "root_volume_iops" {
   type        = number
   default     = 3000
-  description = "The amount of provisioned IOPS"
+  description = "The volume IOPS; 3000 is the gp3 default""
+}
+
+variable "root_volume_throughput" {
+  type        = number
+  default     = 125
+  description = "The volume throughput in MiB/s; 125 is the gp3 default"
 }
 
 variable "force_delete_snapshot" {
