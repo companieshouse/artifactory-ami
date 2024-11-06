@@ -7,6 +7,7 @@ build {
     groups = [ "${var.configuration_group}" ]
     playbook_file = "${var.playbook_file_path}"
     extra_arguments  = [
+      "--scp-extra-args", "'-O'",
       "-e", "aws_region=${var.aws_region}",
       "-e", "artifactory_version=${var.artifactory_version}",
       "-e", "ssh_username=${var.ssh_username}",
