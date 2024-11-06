@@ -19,7 +19,7 @@
     state: latest
 
 - name: Get Artifactory installer RPM from S3
-  amazon.aws.aws_s3:
+  amazon.aws.s3_object:
     bucket: "{{ resource_bucket_name }}"
     object: "{{ resource_bucket_artifactory_prefix }}/{{ artifactory_package }}"
     dest: "/root/{{ artifactory_package }}"
