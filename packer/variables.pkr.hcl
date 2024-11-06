@@ -111,7 +111,7 @@ variable "version" {
 
 variable "artifactory_version" {
   type        = string
-  default     = "7.77.14"
+  default     = "7.84.21"
   description = "The semantic version number for the Artifactory release which is subsequently passed in to Ansible"
 }
 
