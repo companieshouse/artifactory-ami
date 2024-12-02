@@ -19,7 +19,7 @@
     size: +100%FREE
     state: present
 
-- name: Create xfs filesystem on artifactory_var_lv
+- name: Create xfs filesystem on the logical volume
   community.general.filesystem:
     dev: "/dev/{{ artifactory_var_vg_name }}/{{ artifactory_var_lv_name }}"
     fstype: xfs
