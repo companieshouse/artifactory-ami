@@ -4,24 +4,24 @@
     name: lvm2
     state: latest
 
-- name: Create artifactory_var_vg volume group
+- name: Create {{ artifactory_var_vg_name }} volume group
   community.general.lvg:
-    vg: artifactory_var_vg
+    vg: "{{ artifactory_var_vg_name }}"
     state: present
     pvs:
       - "{{ artifactory_var_device_node }}"
 
-- name: Create artifactory_var_lv logical volume
+- name: Create {{ artifactory_var_lv_name }} logical volume
   community.general.lvol:
-    lv: artifactory_var_lv
-    vg: artifactory_var_vg
+    lv: "{{ artifactory_var_lv_name }}"
+    vg: "{{ artifactory_var_vg_name }}"
     resizefs: true
     size: +100%FREE
     state: present
 
 - name: Create xfs filesystem on artifactory_var_lv
   community.general.filesystem:
-    dev: /dev/mapper/artifactory_var_vg/artifactory_var_lv
+    dev: "/dev/{{ artifactory_var_vg_name }}/{{ artifactory_var_lv_name }}"
     fstype: xfs
     state: present
 
@@ -36,7 +36,7 @@
 - name: Mount artifactory_var_lv to the mount point
   ansible.posix.mount:
     path: "{{ artifactory_var_directory_path }}"
-    src: /dev/mapper/artifactory_var_vg-artifactory_var_lv
+    src: "/dev/{{ artifactory_var_vg_name }}/{{ artifactory_var_lv_name }}"
     fstype: xfs
     opts: defaults,noatime
     state: mounted
