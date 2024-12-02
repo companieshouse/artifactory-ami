@@ -1,4 +1,46 @@
 ---
+- name: Install LVM Tools
+  ansible.builtin.dnf:
+    name: lvm2
+    state: latest
+
+- name: Create artifactory_var_vg volume group
+  community.general.lvg:
+    vg: artifactory_var_vg
+    state: present
+    pvs:
+      - "{{ artifactory_var_device_node }}"
+
+- name: Create artifactory_var_lv logical volume
+  community.general.lvol:
+    lv: artifactory_var_lv
+    vg: artifactory_var_vg
+    resizefs: true
+    size: +100%FREE
+    state: present
+
+- name: Create xfs filesystem on artifactory_var_lv
+  community.general.filesystem:
+    dev: /dev/mapper/artifactory_var_vg/artifactory_var_lv
+    fstype: xfs
+    state: present
+
+- name: Create Artifactory var directory mount point
+  ansible.builtin.file:
+    path: "{{ artifactory_var_directory_path }}"
+    owner: root
+    group: root
+    mode: '0755'
+    state: directory
+
+- name: Mount artifactory_var_lv to the mount point
+  ansible.posix.mount:
+    path: "{{ artifactory_var_directory_path }}"
+    src: /dev/mapper/artifactory_var_vg-artifactory_var_lv
+    fstype: xfs
+    opts: defaults,noatime
+    state: mounted
+
 - name: Install Python pip
   ansible.builtin.dnf:
     name: "python3-pip"
@@ -42,10 +84,15 @@
     enabled: no
     state: stopped
 
-- name: install efs utils
+- name: Install EFS utils
   ansible.builtin.dnf:
     name: amazon-efs-utils
     state: latest
+
+- name: Create the EFS directory
+  ansible.builtin.file:
+    path: /var/lib/artifactory
+    state: directory
 
 - name: Configure JFrog environment
   ansible.builtin.copy:
@@ -55,8 +102,3 @@
     dest: "/etc/profile.d/artifactory.sh"
     content: |
       export JFROG_HOME="/opt/jfrog"
-
-- name: Create the EFS directory
-  ansible.builtin.file:
-    path: /var/lib/artifactory
-    state: directory
