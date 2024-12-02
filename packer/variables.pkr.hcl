@@ -68,10 +68,34 @@ variable "playbook_file_path" {
   description = "The relative path to the Ansible playbook file"
 }
 
+variable "data_volume_delete_on_termination" {
+  type        = bool
+  default     = true
+  description = "Indicates whether the data volume is deleted on instance termination"
+}
+
+variable "data_volume_iops" {
+  type        = number
+  default     = 3000
+  description = "The volume IOPS; 3000 is the gp3 default"
+}
+
+variable "data_volume_size_gb" {
+  type        = number
+  default     = 10
+  description = "The EC2 instance data volume size in Gibibytes (GiB)"
+}
+
+variable "data_volume_throughput" {
+  type        = number
+  default     = 125
+  description = "The volume throughput in MiB/s; 125 is the gp3 default"
+}
+
 variable "root_volume_delete_on_termination" {
   type        = bool
   default     = true
-  description = "Indicates whether the EBS volume is deleted on instance termination"
+  description = "Indicates whether the root volume is deleted on instance termination"
 }
 
 variable "root_volume_iops" {
