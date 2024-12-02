@@ -33,7 +33,7 @@
     mode: '0755'
     state: directory
 
-- name: Mount artifactory_var_lv to the mount point
+- name: Mount Artifactory var directory
   ansible.posix.mount:
     path: "{{ artifactory_var_directory_path }}"
     src: "/dev/{{ artifactory_var_vg_name }}/{{ artifactory_var_lv_name }}"
