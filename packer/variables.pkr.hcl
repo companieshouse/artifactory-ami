@@ -74,6 +74,12 @@ variable "data_volume_delete_on_termination" {
   description = "Indicates whether the data volume is deleted on instance termination"
 }
 
+variable "data_volume_device_node" {
+  type        = string
+  default     = "/dev/sdb"
+  description = "The device node path for the data volume"
+}
+
 variable "data_volume_iops" {
   type        = number
   default     = 3000

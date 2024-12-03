@@ -24,7 +24,7 @@ source "amazon-ebs" "builder" {
 
   launch_block_device_mappings {
     delete_on_termination = var.data_volume_delete_on_termination
-    device_name           = "/dev/sdb"
+    device_name           = var.data_volume_device_node
     encrypted             = true
     iops                  = var.data_volume_iops
     kms_key_id            = var.kms_key_id
