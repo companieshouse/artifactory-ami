@@ -1,4 +1,1 @@
 artifactory_package: "jfrog-artifactory-pro-{{ artifactory_version }}.rpm"
-artifactory_var_directory_path: /var/opt/jfrog
-artifactory_var_lv_name: artifactory_var_lv
-artifactory_var_vg_name: artifactory_var_vg
