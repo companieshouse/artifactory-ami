@@ -42,10 +42,15 @@
     enabled: no
     state: stopped
 
-- name: install efs utils
+- name: Install EFS utils
   ansible.builtin.dnf:
     name: amazon-efs-utils
     state: latest
+
+- name: Create the EFS directory
+  ansible.builtin.file:
+    path: /var/lib/artifactory
+    state: directory
 
 - name: Configure JFrog environment
   ansible.builtin.copy:
@@ -55,8 +60,3 @@
     dest: "/etc/profile.d/artifactory.sh"
     content: |
       export JFROG_HOME="/opt/jfrog"
-
-- name: Create the EFS directory
-  ansible.builtin.file:
-    path: /var/lib/artifactory
-    state: directory

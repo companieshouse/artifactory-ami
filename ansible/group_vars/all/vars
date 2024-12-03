@@ -1,0 +1,9 @@
+volume_mounts:
+  - device: "{{ artifactory_var_device_node }}"
+    file_system_type: xfs
+    logical_volume: var_data
+    volume_group: artifactory
+    mount_point: /var/opt/jfrog
+    options:
+      - defaults
+      - noatime

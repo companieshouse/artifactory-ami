@@ -22,6 +22,17 @@ source "amazon-ebs" "builder" {
     volume_type           = "gp3"
   }
 
+  launch_block_device_mappings {
+    delete_on_termination = var.data_volume_delete_on_termination
+    device_name           = var.data_volume_device_node
+    encrypted             = true
+    iops                  = var.data_volume_iops
+    kms_key_id            = var.kms_key_id
+    throughput            = var.data_volume_throughput
+    volume_size           = var.data_volume_size_gb
+    volume_type           = "gp3"
+  }
+
   security_group_filter {
     filters = {
       "group-name": "packer-builders-${var.aws_region}"
